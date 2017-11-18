@@ -1,12 +1,14 @@
-package com.test.application;
+package com.test;
 
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 
+@SpringBootApplication
 @Controller
-@EnableAutoConfiguration
+@ComponentScan(basePackages = {"com.test"})
 public class SampleController {
 
     @RequestMapping("/")
