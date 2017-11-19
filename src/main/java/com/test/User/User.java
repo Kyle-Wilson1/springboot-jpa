@@ -8,9 +8,15 @@ import javax.persistence.*;
 @Table(name = "User")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
     private long age;
+
+    public User(String name, long age) {
+        this.name = name;
+        this.age = age;
+    }
 
     public long getId() {
         return id;

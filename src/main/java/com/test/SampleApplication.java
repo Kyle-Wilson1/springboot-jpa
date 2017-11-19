@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @SpringBootApplication
 @Controller
 @ComponentScan(basePackages = {"com.test"})
-public class SampleController {
+public class SampleApplication {
 
     @RequestMapping("/")
     @ResponseBody
@@ -18,7 +18,7 @@ public class SampleController {
     }
 
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(SampleController.class, args);
+        SpringApplication.run(SampleApplication.class, args);
     }
 
 }

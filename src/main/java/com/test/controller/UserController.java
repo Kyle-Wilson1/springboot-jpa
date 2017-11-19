@@ -5,13 +5,14 @@ import com.test.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import java.util.*;
 
 /**
  * Created by Song on 2017/2/15.
  * User控制层
  */
 @RestController
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -21,11 +22,25 @@ public class UserController {
         return "user/index";
     }
 
-    @RequestMapping(value = "/show",method = RequestMethod.GET)
-    public String show(@RequestParam(value = "name")String name){
-        User user = userService.findUserByName(name);
-        if(null != user)
-            return user.getId()+"/"+user.getName()+"/"+user.getAge();
-        else return "null";
+    @RequestMapping(value = "/user",method = RequestMethod.GET)
+    public List<User> find(@RequestParam(value = "name")String name){
+        return  userService.findUserByName(name);
+    }
+
+    @RequestMapping(value = "/user/all",method = RequestMethod.GET)
+    public List<User> findAll(){
+        return  userService.findAll();
+    }
+
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    public User save(@RequestParam(value = "name")String name, @RequestParam(value = "age")Integer age){
+        User user = new User(name,age);
+        return userService.save(user);
+    }
+
+    @RequestMapping(value = "/user", method = RequestMethod.DELETE)
+    public void delete(@RequestParam(value = "name")String name, @RequestParam(value = "age")Integer age){
+        User user = new User(name,age);
+        userService.delete(user);
     }
 }
