@@ -5,7 +5,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/test?characterEncoding=utf8
+    url: jdbc:mysql://localhost:3306/test?characterEncoding=utf8&useSSL=false
     username: root
     password:
   jpa:
@@ -13,7 +13,8 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
-      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      naming:
+        strategy: org.hibernate.cfg.ImprovedNamingStrategy
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect

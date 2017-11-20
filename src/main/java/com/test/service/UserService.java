@@ -2,8 +2,11 @@ package com.test.service;
 
 import com.test.UserDao.*;
 import com.test.User.*;
+import com.test.response.RestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 import java.util.*;
 
 @Service
@@ -15,7 +18,20 @@ public class UserService {
         List<User> user = null;
         try{
             user = userRepositoty.findUserByName(name);
-        }catch (Exception e){}
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return user;
+    }
+
+    @Transactional
+    public int updateAgeByName(String name, Long age){
+        int user = 0;
+        try{
+            user = userRepositoty.updateAgeByName(name,age);
+        }catch (Exception e){
+            System.out.println(e);
+        }
         return user;
     }
 
@@ -23,7 +39,9 @@ public class UserService {
         List<User> list = null;
         try{
             list = userRepositoty.findAll();
-        }catch (Exception e){}
+        }catch (Exception e){
+            System.out.println(e);
+        }
         return list;
     }
 
@@ -31,15 +49,23 @@ public class UserService {
         User ret_user = null;
         try{
             ret_user = userRepositoty.save(user);
-        }catch (Exception e){}
+        }catch (Exception e){
+            System.out.println(e);
+        }
         return ret_user;
     }
 
-    public void delete(User user){
+    @Transactional
+    public RestResponse delete(String name){
         try{
-            userRepositoty.delete(user);
-        }catch (Exception e){}
-        return;
+            userRepositoty.delete(name);
+        }catch (Exception e){
+            System.out.println(e);
+            RestResponse rsp=new RestResponse(new Long(1),"failed");
+            return rsp;
+        }
+        RestResponse rsp=new RestResponse(new Long(0),"success");
+        return rsp;
     }
 
 }
