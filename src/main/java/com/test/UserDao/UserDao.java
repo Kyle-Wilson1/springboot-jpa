@@ -20,13 +20,13 @@ public interface UserDao extends JpaRepository<User,Long>{
     //@Query("select t from User t")
     List<User> findAll();
 
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Query("update User u set u.age = :age where u.name = :name")
     int updateAgeByName(@Param("name") String name, @Param("age") Long age);
 
     User save(User user);
 
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Query(value="delete from User where name =:name",nativeQuery=true)
     void delete(@Param("name") String name);
 }
